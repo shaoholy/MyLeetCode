@@ -1,0 +1,28 @@
+class Solution {
+    public List<Interval> merge(List<Interval> intervals) { 
+        Collections.sort(intervals, new Comparator<Interval>(){
+            public int compare(Interval obj0, Interval obj1) {
+                return obj0.start - obj1.start;
+            }
+        });
+        List<Interval> res=new LinkedList<Interval>();
+        int i=0;
+        while(i<intervals.size()){
+            if (i==intervals.size()-1 || intervals.get(i).end<intervals.get(i+1).start){
+                res.add(intervals.get(i));
+                i++;
+            }
+            else if(intervals.get(i).end>=intervals.get(i+1).start){
+                int j=i+1;
+                int curend=Math.max(intervals.get(i).end, intervals.get(i+1).end);
+                while(j<intervals.size() && intervals.get(j).start<=curend){
+                    curend=Math.max(curend,intervals.get(j).end );
+                    j++;
+                }
+                res.add(new Interval(intervals.get(i).start,curend));
+                i=j;
+            }       
+        } 
+        return res;
+    }
+}
