@@ -1,0 +1,35 @@
+package newjavaproject1;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class MeetingRoom1 {
+
+        public static void main(String[] args) {
+                // TODO Auto-generated method stub
+                int[][] meetingtime= {{0,5},{5,10},{15,20}};
+                Solution news=new Solution();
+                System.out.println(news.checkmm(meetingtime));
+
+        }
+
+}
+
+class Solution{
+        public boolean checkmm(int[][] meetingtime) {
+                Arrays.sort(meetingtime, new Comparator<int[]>() {
+
+                        @Override
+                        public int compare(int[] arg0, int[] arg1) {
+                                // TODO Auto-generated method stub
+                                return arg0[0]-arg1[0];
+                        }
+                });
+                for(int i=1; i<meetingtime.length; i++) {
+                        if(meetingtime[i][0]<meetingtime[i-1][1]) {
+                                return false;
+                        }
+                }
+                return true;
+        }
+}
