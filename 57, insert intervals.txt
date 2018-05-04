@@ -1,0 +1,57 @@
+public class Interval {
+    int start;
+    int end;
+    Interval() { start = 0; end = 0; }
+    Interval(int s, int e) { start = s; end = e; }
+}
+
+class Solution {
+    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+        int newstart=newInterval.start, newend=newInterval.end;
+        List<Interval> res=new LinkedList<Interval>();
+        List<Integer> starts=new ArrayList<Integer>();
+        List<Integer> ends=new ArrayList<Integer>();
+        int newstartup, newstartdown, newendup, newenddown;
+        for(int i=0; i<intervals.size(); i++){
+            starts.add(intervals.get(i).start);
+            ends.add(intervals.get(i).end);
+        }
+        
+        starts.add(newstart);
+        Collections.sort(starts);
+        newstartup=starts.indexOf(newstart);
+        ends.add(newstart);
+        Collections.sort(ends);
+        newstartdown=ends.indexOf(newstart);
+        
+        if(starts.contains(newend)){
+            starts.add(newend);
+            Collections.sort(starts);
+            newendup=starts.indexOf(newend)+1;
+        }else{
+            starts.add(newend);
+            Collections.sort(starts);
+            newendup=starts.indexOf(newend);
+        }
+        ends.add(newend);
+        Collections.sort(ends);
+        newenddown=ends.indexOf(newend);
+        
+        int startcordi=Math.min(newstartup, newstartdown);
+        int endcordi=Math.max(newendup, newenddown);
+        System.out.println(startcordi);
+        System.out.println(endcordi);
+        
+        for(int i=0; i<starts.size(); i++){
+            if(i==startcordi){
+                res.add(new Interval(starts.get(i), ends.get(endcordi)));
+                i=endcordi;
+                continue;
+            }else{
+                res.add(new Interval(starts.get(i), ends.get(i)));
+            }
+        }
+        
+        return res;
+    }
+}
