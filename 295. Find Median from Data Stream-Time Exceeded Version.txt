@@ -1,0 +1,21 @@
+class MedianFinder {
+    ArrayList<Integer> thelist;
+    double mid;
+
+    /** initialize your data structure here. */
+    public MedianFinder() {
+        this.thelist=new ArrayList<Integer>();
+        this.mid=0;
+    }
+    
+    public void addNum(int num) {
+        thelist.add(num);
+        Collections.sort(thelist);
+        int k=thelist.size();
+        this.mid= (double)(thelist.get(k/2)+thelist.get((k-1)/2))/2;
+    }
+    
+    public double findMedian() {
+        return this.mid;
+    }
+}
