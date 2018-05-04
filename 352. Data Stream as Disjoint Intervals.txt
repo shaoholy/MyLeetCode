@@ -1,0 +1,51 @@
+class SummaryRanges {
+    private TreeMap<Integer, Interval> bondToInterval; // store intervals in TreeMap <left bound, interval>
+    
+    public SummaryRanges() {
+        //valueToBond = new HashMap<>();
+        bondToInterval = new TreeMap<>();
+    }
+    
+    public void addNum(int val) {
+        //contained in an existing interval
+        Interval newval=new Interval(val, val);
+        Interval upval= bondToInterval.floorEntry((Integer)val)==null? new Interval(-10, -10):bondToInterval.floorEntry((Integer)val).getValue();
+        Interval downval=bondToInterval.ceilingEntry((Integer)val)==null? new Interval(Integer.MAX_VALUE, Integer.MAX_VALUE):bondToInterval.ceilingEntry((Integer)val).getValue();
+        if (downval.start==val || upval.end>=val) {
+            return;
+        }
+        //isolated number, no connection to its left or right
+        if(val-upval.end>1 && downval.start-val>1) {
+         bondToInterval.put(val, newval);
+         return;
+        }
+        
+        if (val-upval.end>1 && downval.start-val==1) {
+                        bondToInterval.put(val, new Interval(val, downval.end));
+                        bondToInterval.remove(val+1);
+                        return;
+                }
+        
+        if(val-upval.end==1 && downval.start-val>1) {
+         upval.end++;
+         return;
+        }
+        
+        if(val-upval.end==1 && downval.start-val==1) {
+         bondToInterval.put(upval.start, new Interval(upval.start, downval.end));
+         bondToInterval.remove(downval.start);
+         return;
+        }
+    }
+    
+    public ArrayList<Interval> getIntervals() {
+        return new ArrayList<>(bondToInterval.values());
+    }
+}
+
+class Interval{
+    int start;
+    int end;
+    Interval() { start = 0; end = 0; }
+    Interval(int s, int e) { start = s; end = e; }
+}
