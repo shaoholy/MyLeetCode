@@ -1,0 +1,44 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+        if(nums.length==1) return nums[0];
+        int product=0,start=0,end=0;
+        for(int i=0; i<nums.length; i++){
+            if(nums[i]==0 && i==start){
+                start++;
+                end++;
+                continue;
+            }
+            if(nums[i]==0){
+                product=Math.max(product,findlargest(nums, start,--end));
+                start=i+1;
+                end=start;
+                continue;
+            }else{
+                end++;
+            }
+        }
+        if(start<nums.length) product=Math.max(product,findlargest(nums, start,--end));
+        return product;
+    }
+    private int findlargest(int[] nums, int start, int end){
+        int product=1,smalldevisor=Integer.MIN_VALUE;
+        if(start==end) return nums[start];
+        for(int i=start; i<=end; i++){
+            product*=nums[i];
+            if(product<0) smalldevisor=Math.max(product, smalldevisor);
+            System.out.println(smalldevisor);
+        }
+        if(product>0) return product; 
+        else{
+            int negdevisor=1;
+            for(int i=end; i>=start; i--){
+                negdevisor*=nums[i];
+                if(negdevisor<0){
+                    smalldevisor=Math.max(negdevisor, smalldevisor);
+                    break;
+                }
+            }
+            return product/smalldevisor;
+        }
+    }
+}
