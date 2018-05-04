@@ -2,6 +2,9 @@ class Solution{
 	public int maxSumK(int[] a, int k){
 		int res=0;
 		int sum=0;
+		for(int i=0; i<a.length; i++){
+			sum+=a[i];
+			}
 		return res;
 	}
 }
