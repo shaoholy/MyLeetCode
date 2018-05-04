@@ -1,0 +1,66 @@
+package newjavaproject1;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+
+import javafx.scene.layout.Priority;
+
+public class MeetingRoom1 {
+
+        public static void main(String[] args) {
+                // TODO Auto-generated method stub
+                int[][] meetingtime= {{0,30},{5,10},{3,20}};
+                Solution news=new Solution();
+                //System.out.println(news.checkmm(meetingtime));
+                System.out.println(news.minMM(meetingtime));
+
+        }
+
+}
+
+class Solution{
+        public boolean checkmm(int[][] meetingtime) {
+                Arrays.sort(meetingtime, new Comparator<int[]>() {
+
+                        @Override
+                        public int compare(int[] arg0, int[] arg1) {
+                                // TODO Auto-generated method stub
+                                return arg0[0]-arg1[0];
+                        }
+                });
+                for(int i=1; i<meetingtime.length; i++) {
+                        if(meetingtime[i][0]<meetingtime[i-1][1]) {
+                                return false;
+                        }
+                }
+                return true;
+        }
+        
+        public int minMM(int[][] meetingtime) {
+                int res=1;
+                Arrays.sort(meetingtime, new Comparator<int[]>() {
+
+                        @Override
+                        public int compare(int[] arg0, int[] arg1) {
+                                // TODO Auto-generated method stub
+                                return arg0[0]-arg1[0];
+                        }
+                });
+                LinkedList<int[]> curr=new LinkedList<>();
+                curr.add(meetingtime[0]);
+                for(int i=1; i<meetingtime.length; i++) {
+                        for (Iterator iterator = curr.iterator(); iterator.hasNext();) {
+                                int[] is = (int[]) iterator.next();
+                                if(is[1]<=meetingtime[i][0]) curr.remove(is);
+                        }
+                        curr.add(meetingtime[i]);
+                        res=Math.max(res, curr.size());
+                }
+                
+                
+                return res;
+        }
+}
