@@ -1,0 +1,26 @@
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int winposi= nums.length>=k? nums.length-k+1:1;
+        if(k==0 && nums.length==0) winposi=0;
+        int[] res=new int[winposi];
+        if(nums.length==0 || nums==null) return res;
+        
+        TreeMap<Integer, Integer> currWin=new TreeMap<Integer, Integer>((a,b) -> (b-a));
+        for(int i=0; i<k; i++){
+            currWin.put(nums[i],i);
+        }
+        res[0]=currWin.firstEntry().getKey();
+        
+        for(int i=k; i<nums.length; i++){
+            while(currWin.size()!=0 && currWin.firstEntry().getValue()<=i-k) {
+                currWin.remove(currWin.firstEntry().getKey());
+            }
+            currWin.put(nums[i],i);
+            res[i-k+1]=currWin.firstEntry().getKey();
+        }
+        
+
+        
+        return res;
+    }
+}
