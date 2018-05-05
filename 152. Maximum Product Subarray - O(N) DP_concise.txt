@@ -1,0 +1,28 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+        return findlargest(nums, 0,nums.length-1);
+    }
+    private int findlargest(int[] nums, int start, int end){
+        int product=nums[start],res=nums[start];
+        int smalldevisor= product<0? product:Integer.MIN_VALUE;
+        if(product==0 && end-start!=0) return findlargest(nums, start+1,end);
+        for(int i=start+1; i<=end; i++){
+            product*=nums[i];
+            if(product<0) {
+                 
+                if(smalldevisor!=Integer.MIN_VALUE) res=Math.max(res, product/smalldevisor);
+                smalldevisor=Math.max(product, smalldevisor);
+            }
+            else if(product>0) {
+                res=Math.max(res, product);
+            }
+            else{
+                res=Math.max(res, product);
+                if(i<end){
+                    product=1;
+                    smalldevisor= Integer.MIN_VALUE;}
+            }
+        }
+        return res;
+    }
+}
