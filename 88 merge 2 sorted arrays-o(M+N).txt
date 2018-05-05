@@ -1,0 +1,15 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int newend=m+n-1, oneidx=m-1, twoidx=n-1;
+        while(twoidx>=0 && oneidx>=0){
+            if( nums1[oneidx]<nums2[twoidx]){
+                nums1[newend--]=nums2[twoidx--];
+            }else{
+                nums1[newend--]=nums1[oneidx--];
+            }
+        }
+        while(twoidx>=0){
+            nums1[newend--]=nums2[twoidx--];
+        }
+    }
+}
