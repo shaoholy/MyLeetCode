@@ -1,0 +1,29 @@
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+       List<Integer>  curr=new ArrayList<Integer>();
+        List<String> res=new LinkedList<String>();
+        if(nums.length==0 || nums==null) return res;
+        for(int x: nums){
+            if(curr.size()==0 || curr.get(curr.size()-1)-x==-1)  curr.add(x);
+            else{
+                String news=new String();
+                if(curr.size()==1){
+                    news+=curr.get(0);
+                }else{
+                    news=news+curr.get(0)+"->"+curr.get(curr.size()-1);
+                }
+                res.add(news);
+                curr.clear();
+                curr.add(x);
+            }
+        }
+        String last=new String();
+        if(curr.size()==1){
+                    last+=curr.get(0);
+                }else{
+                    last=last+curr.get(0)+"->"+curr.get(curr.size()-1);
+                }
+        res.add(last);
+        return res;
+    }
+}

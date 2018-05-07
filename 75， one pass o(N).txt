@@ -1,0 +1,40 @@
+class Solution {
+    public void sortColors(int[] nums) {
+        int left=0,right=nums.length-1;
+        while(left<right){
+            if(nums[left]==0){
+                left++;
+                continue;
+            }
+            if(nums[right]==2){
+                right--;
+                continue;
+            }
+            if(nums[left]==2 && nums[right]==0){
+                nums[left++]=0;
+                nums[right--]=2;
+            }else if(nums[left]==2 && nums[right]==1){
+                nums[right--]=2;
+                nums[left]=1;
+            }else if(nums[left]==1 && nums[right]==0){
+                nums[right]=1;
+                nums[left++]=0;
+            }else if(nums[left]==1 && nums[right]==1){
+                int k=left+1;
+                while(k<right){
+                    if(nums[k]==0){
+                        nums[k]=1;
+                        nums[left++]=0;
+                        break;
+                    }else if(nums[k]==2){
+                        nums[k]=1;
+                        nums[right--]=2;
+                        break;
+                    }
+                    k++;
+                }
+                if(k==right) break;
+            }
+        }
+    }
+}
