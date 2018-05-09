@@ -1,0 +1,19 @@
+class Solution {
+    public int wiggleMaxLength(int[] nums) {
+        if(nums.length==0 || nums==null) return 0;
+        if(nums.length==1) return 1;
+        int i=1, length=2;
+        while(i<nums.length && nums[i]==nums[i-1]) i++;
+        if(i==nums.length) return 1;
+        int lastgap=nums[i]-nums[i-1];
+        i++;
+        for(; i<nums.length; i++){
+            int thisgap=nums[i]-nums[i-1];
+            if(thisgap*lastgap<0){
+                length++;
+                lastgap=thisgap;
+            }
+        }
+        return length;
+    }
+}
