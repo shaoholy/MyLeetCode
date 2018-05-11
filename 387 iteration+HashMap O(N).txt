@@ -1,0 +1,19 @@
+class Solution {
+    public int firstUniqChar(String s) {
+        int[] count =new int[s.length()];
+        HashMap<Character,Integer> themap=new HashMap<Character, Integer>();
+        for(int i=0; i<s.length(); i++){
+            if(!themap.containsKey(s.charAt(i))){
+                themap.put(s.charAt(i),i);
+                count[i]=1;
+            }else{
+                count[i]=-1;
+                count[themap.get(s.charAt(i))]++;
+            }
+        }
+        for(int i=0; i<s.length(); i++){
+            if(count[i]==1) return i; 
+        }
+        return -1;
+    }
+}
