@@ -1,0 +1,15 @@
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        for(int i=0; i<ransomNote.length(); i++){
+            if(magazine.equals("")) return false;
+            int idx=magazine.indexOf(ransomNote.charAt(i));
+            if(idx==-1) return false;
+            else{
+                if(idx==0)  magazine=magazine.substring(1);
+                else if(idx==magazine.length()-1) magazine=magazine.substring(0, magazine.length()-1);
+                else magazine=magazine.substring(0, idx)+magazine.substring(idx+1, magazine.length());
+            }//endindex?char?????substring??!
+        }
+        return true;
+    }
+}
