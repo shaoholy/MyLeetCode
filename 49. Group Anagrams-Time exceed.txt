@@ -1,0 +1,30 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res=new LinkedList<List<String>>();
+        List<String> mids=new LinkedList<String>();
+        for(String x: strs){
+            boolean flag=false;
+            for(Iterator iterator = res.iterator(); iterator.hasNext();){
+                List<String> curlist=(List<String>)iterator.next();
+                if(checkAna(x,curlist.get(0))){
+                    curlist.add(x);
+                    flag=true;
+                    break;
+                }
+            }
+            if(!flag){
+                List<String> newlist=new LinkedList<String>();
+                newlist.add(x);
+                res.add(newlist);
+            }
+        }
+        return res;
+    }
+    private boolean checkAna(String s, String t){
+        int[] alphabet = new int[26];
+        for (int i = 0; i < s.length(); i++) alphabet[s.charAt(i) - 'a']++;
+        for (int i = 0; i < t.length(); i++) alphabet[t.charAt(i) - 'a']--;
+        for (int i : alphabet) if (i != 0) return false;
+        return true;
+    }
+}
