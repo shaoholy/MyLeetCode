@@ -1,0 +1,14 @@
+class NewSolution {  
+    public ArrayList<String> generatePossibleNextMoves(String s) { 
+    	ArrayList<String> res=new ArrayList<String>();
+    	for(int i=1; i<s.length(); i++) {
+    		if(s.charAt(i)=='+' && s.charAt(i-1)=='+') {
+    			String x=s.substring(0, i-1)+"++";
+    			if(i<s.length()-1) x+=s.substring(i+1,s.length());
+    			res.add(x);
+    		}
+    	}
+    	return res;
+    }
+
+}

@@ -1,0 +1,47 @@
+class Solution {
+    public String reverseVowels(String s) {
+        int left=0, right=s.length()-1;
+        char[] input=s.toCharArray();
+        while(left<right){
+            if(input[left]!='a' && input[left]!='e' && input[left]!='i' && input[left]!='o' && input[left]!='u' && input[left]!='A' && input[left]!='E' && input[left]!='I' && input[left]!='O' && input[left]!='U'){
+                left++;
+                continue;
+            }
+            if(input[right]!='a' && input[right]!='e' && input[right]!='i' && input[right]!='o' && input[right]!='u' && input[right]!='A' && input[right]!='E' && input[right]!='I' && input[right]!='O' && input[right]!='U'){
+                right--;
+                continue;
+            }
+            char temp=input[left];
+            input[left++]=input[right];
+            input[right--]=temp;
+        }
+        return String.valueOf(input);
+    }
+}
+
+
+//with hashset
+
+class Solution {
+    public String reverseVowels(String s) {
+        int left=0, right=s.length()-1;
+        char[] input=s.toCharArray();
+        char[] vowels={'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O','U'};
+        HashSet<Character> thevowels=new HashSet<Character>();
+        for(char x:vowels) thevowels.add(x);
+        while(left<right){
+            if(!thevowels.contains(input[left])){
+                left++;
+                continue;
+            }
+            if(!thevowels.contains(input[right])){
+                right--;
+                continue;
+            }
+            char temp=input[left];
+            input[left++]=input[right];
+            input[right--]=temp;
+        }
+        return String.valueOf(input);
+    }
+}
