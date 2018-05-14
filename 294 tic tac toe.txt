@@ -2,7 +2,7 @@ public class Inter {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String x="-++--++++-+-++--++--+++++---+";
+		String x="-++--++--+-++--++------+";
 		Inter theint = new Inter();
 		HashSet<String> firstwin=new HashSet<String>();
 		HashSet<String> secondwin=new HashSet<String>();
@@ -30,9 +30,16 @@ public class Inter {
 		side=!side;
 		for (Iterator iterator = moves.iterator(); iterator.hasNext();) {
 			String onemove = (String) iterator.next();
-			if(secondwin.contains(onemove)) continue;
+			if(secondwin.contains(onemove)) {
+				if(side==false) {
+					return false;
+				}else  continue;
+			}
 			if(winner(onemove,side,firstwin,secondwin)) return true;
-			else secondwin.add(onemove);
+			else {
+				secondwin.add(onemove);
+				if(side==false)  return false;
+				}
 		}
 		return false;
 	}
