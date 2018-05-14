@@ -1,0 +1,40 @@
+public class group294 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String[] input= {"abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"};
+		group294 thegroup=new group294();
+		
+		int x=thegroup.groupup(input).size();
+		System.out.println(x);
+
+	}
+	
+	private LinkedList<LinkedList<String>> groupup(String[] input) {
+		HashMap<String, LinkedList<String>> themap=new HashMap<String,LinkedList<String>>();
+		for(String x: input) {
+			String shifter=getshift(x);
+			if(themap.containsKey(shifter)) {
+				themap.get(shifter).add(x);
+			}else {
+				LinkedList<String> newlist=new LinkedList<String>();
+				newlist.add(x);
+				themap.put(shifter,newlist);
+			}
+		}
+		return new LinkedList(themap.values());
+		
+	}
+	private String getshift(String input) {
+		char[] mid=input.toCharArray();
+		int gap='z'-input.charAt(input.length()-1);
+		String res="";
+		for(char x: mid) {
+			x+=gap;
+			if(x>'z') x=(char) (x-26);
+			res+=x;
+		}
+		return res;
+	}
+
+}
