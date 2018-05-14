@@ -1,0 +1,55 @@
+public class Inter {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String x="-++--++++-+-++--++--+++++---+";
+		Inter theint = new Inter();
+		HashSet<String> firstwin=new HashSet<String>();
+		HashSet<String> secondwin=new HashSet<String>();
+		boolean side=true; //true for first; false for second; 
+		if(theint.winner(x,side,firstwin,secondwin)) System.out.println("first wins");
+		else System.out.println("second wins");
+
+	}
+	
+	private boolean winner(String input, boolean side, HashSet<String> firstwin,HashSet<String> secondwin) {
+		if(input.length()<=1) return false;
+		if(firstwin.contains(input)) return true;
+		if(secondwin.contains(input)) return false;
+		LinkedList<String> moves=allmoves(input);
+		if(moves.size()==0) {
+			if(side) {
+				secondwin.add(input);
+				return false;
+			}
+			else {
+				firstwin.add(input);
+				return true;
+			}
+		}
+		side=!side;
+		for (Iterator iterator = moves.iterator(); iterator.hasNext();) {
+			String onemove = (String) iterator.next();
+			if(secondwin.contains(onemove)) continue;
+			if(winner(onemove,side,firstwin,secondwin)) return true;
+			else secondwin.add(onemove);
+		}
+		return false;
+	}
+	
+	private LinkedList<String> allmoves(String input) {
+		LinkedList<String> themoves=new LinkedList<String>();
+		char[] mid=input.toCharArray();
+		for(int i=1; i<input.length(); i++) {
+			if(mid[i]=='+' && mid[i-1]=='+') {
+				mid[i]='-';
+				mid[i-1]='-';
+				themoves.add(new String(mid));
+				mid[i]='+';
+				mid[i-1]='+';
+			}
+		}
+		return themoves;
+	}
+
+}
