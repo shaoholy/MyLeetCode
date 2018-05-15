@@ -1,0 +1,23 @@
+class Solution {
+    public String countAndSay(int n) {
+        return countone("1", n);
+        
+    }
+    public String countone(String input, int n){
+        if(n==1) return input;
+        int i=0;
+        String res="";
+        while(i<input.length()){
+            char thischar=input.charAt(i);
+            int j=i+1;
+            int count=1;
+            while(j<input.length() && input.charAt(j)==thischar){
+                count++;
+                j++;
+            }
+            res=res+String.valueOf(count)+String.valueOf(thischar);
+            i=j;
+        }
+        return countone(res,n-1);
+    }
+}
