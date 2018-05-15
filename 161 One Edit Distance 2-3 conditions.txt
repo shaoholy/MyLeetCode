@@ -1,0 +1,41 @@
+public class OneEdit {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String a=args[0];
+		String b=args[1];
+		OneEdit newoe=new OneEdit();
+		boolean res=newoe.checkoneedit(a, b);
+		System.out.println(res);
+
+	}
+	public boolean checkoneedit(String a, String b) {
+		char[] mida=a.toCharArray();
+		char[] midb=b.toCharArray();
+		if(a.length()==b.length()) {
+			int checker=0;
+			for(int i=0;i<a.length();i++) {
+				if(mida[i]-midb[i]!=0) checker++;
+			}
+			return checker==1? true:false;
+		}
+		else if(a.length()-b.length()>1 || b.length()-a.length()>1) return false;
+		else if(a.length()-b.length()==1) {
+			return onestepcheck(mida, midb);
+		}else return onestepcheck(midb, mida);
+	}
+	private boolean onestepcheck(char[] a, char[]b) {
+		boolean checker2=true;
+		int i=0,j=0;
+		for(; i<a.length; i++) {
+			if(!checker2 && a[i]!=b[j]) return false;
+			if(checker2 && a[i]!=b[j]) {
+				checker2=false;
+				j--;
+			}
+			j++;
+		}
+		return true;
+	}
+
+}
