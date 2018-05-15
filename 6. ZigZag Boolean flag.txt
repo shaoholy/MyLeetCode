@@ -1,0 +1,24 @@
+class Solution {
+    public String convert(String s, int numRows) {
+        if(s==null ) return null;
+        if(numRows==1 || numRows==0) return s;
+        char[] mid=s.toCharArray();
+        String[] sb=new String[numRows];
+        Arrays.fill(sb,"");
+        boolean updown=true;
+        int startrow=0;
+        for(int i=0; i<s.length(); i++){
+            sb[startrow]+=String.valueOf(mid[i]);
+            if(updown) startrow++;
+                else startrow--;
+            if(startrow==numRows-1) updown=false;
+            if(startrow==0) updown=true;
+        }
+        String res="";
+        for(String x: sb){
+            System.out.println(x);
+            res+=x;
+        }  
+        return res;
+    }
+}
