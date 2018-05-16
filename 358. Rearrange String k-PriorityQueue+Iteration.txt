@@ -3,12 +3,13 @@ public class Kdistance {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Kdistance thekd=new Kdistance();
-		String input="";
+		String input="absaba";
 		System.out.println(thekd.getnewString(input.toCharArray(), 2));
 
 	}
 	public String getnewString(char[] input,int k) {
-		TreeMap<Character,Integer> themap=new TreeMap<Character,Integer>();
+		//TreeMap<Character,Integer> themap=new TreeMap<Character,Integer>();
+		PriorityQueue<onepair> theheap=new PriorityQueue<onepair>((a,b) -> (b.num-a.num));
 		int[] letters=new int[26];
 		Arrays.fill(letters, 0);
 		for(char x: input) {
@@ -17,15 +18,16 @@ public class Kdistance {
 		for(int i=0; i<26; i++) {
 			if (letters[i]!=0) {
 				char theinput=(char) ('a'+i);
-				themap.put( theinput, letters[i]);
+				theheap.offer(new onepair(letters[i], theinput));
+				//themap.put( theinput, letters[i]);
 			}
 		}
 		char[] res=new char[input.length];
 		Arrays.fill(res, '+');
-		while(!themap.isEmpty()) {
-			java.util.Map.Entry<Character, Integer> curr=themap.pollLastEntry();
-			int num=curr.getValue();
-			char thechar=curr.getKey();
+		while(!theheap.isEmpty()) {
+			onepair curr=theheap.poll();
+			int num=curr.num;
+			char thechar=curr.thechar;
 			int start=0;
 			while(res[start]!='+') {
 				start++;
@@ -42,4 +44,12 @@ public class Kdistance {
 		return String.valueOf(res);
 	}
 
+}
+class onepair{
+	int num;
+	char thechar;
+	public onepair(int num, char x) {
+		this.num=num;
+		this.thechar=x;
+	}
 }

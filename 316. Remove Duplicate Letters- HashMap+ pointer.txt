@@ -1,0 +1,35 @@
+public class RemoveDulpicate {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		RemoveDulpicate there=new RemoveDulpicate();
+		String s="a";
+		System.out.println(there.removemethod(s));
+
+	}
+	public String removemethod(String s) {
+		StringBuilder res=new StringBuilder();
+		char[] mid=s.toCharArray();
+        int pointer=0;
+        HashMap<Character, Integer> themap=new HashMap<Character, Integer>();
+		for(int i=0; i<mid.length; i++) {
+			if(mid[i]-mid[pointer]<0) pointer=i;
+			if(!themap.containsKey(mid[i])) themap.put(mid[i], i);
+			else {
+				if(themap.get(mid[i])<pointer) {
+					mid[themap.get(mid[i])]='+';
+					themap.put(mid[i], i);
+					
+				}else {
+					mid[i]='+';
+				}
+			}
+		}
+		for(int i=0; i<mid.length; i++) {
+			if(mid[i]!='+') res.append(mid[i]);
+		}
+        
+		return new String(res);
+	}
+
+}
