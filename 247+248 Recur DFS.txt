@@ -1,0 +1,65 @@
+public class Snum2 {
+	private char[] pair = {'0', '1', '6', '8', '9'};  
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Snum2 newnum2=new Snum2();
+		System.out.println(newnum2.findallstro(3).size());
+		System.out.println(newnum2.findallstro2(50, 98).size());
+	}
+	
+	private void dfs(char[] tochar, LinkedList<String> res, int posi) {
+		for(int i=0; i<pair.length; i++) {
+			int reverseposi=tochar.length-1-posi;
+			if(reverseposi==posi) {
+				for(char x:pair) {
+					if(x=='6' || x=='9') continue;
+					tochar[posi]=x;
+					res.add(new String(tochar));
+				}
+				return;
+			}			//奇数中位情况
+			if(reverseposi<posi) {
+				res.add(new String(tochar));
+				return;
+			}//偶数中位情况
+			
+			if(tochar.length>1 && pair[i]=='0' && posi==0) continue;
+			
+			tochar[posi]=pair[i];
+			
+			if(pair[i]=='6') {
+				tochar[reverseposi]='9';
+			}else if(pair[i]=='9') {
+				tochar[reverseposi]='6';
+			}else {
+				tochar[reverseposi]=pair[i];
+			}
+			dfs(tochar, res, posi+1);
+		}
+	}
+	
+	public LinkedList<String> findallstro(int n){
+		LinkedList<String> res = new LinkedList<String>();
+		dfs(new char[n], res, 0);
+		return res;
+	}
+	
+	public LinkedList<String> findallstro2(int low, int upper){
+		LinkedList<String> res = new LinkedList<String>();
+		String lostr=String.valueOf(low);
+		String upstr=String.valueOf(upper);
+		for(int i=lostr.length(); i<=upstr.length(); i++) {
+			dfs(new char[i], res, 0);}
+		LinkedList<String> redunres = new LinkedList<String>();
+		for (Iterator iterator = res.iterator(); iterator.hasNext();) {
+					String string = (String) iterator.next();
+					int theint=Integer.parseInt(string);
+					if (theint<low || theint>upper) {
+						redunres.add(string);
+					}
+				}
+		res.removeAll(redunres);
+		return res;
+	}
+}
