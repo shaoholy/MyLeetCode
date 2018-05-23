@@ -1,0 +1,180 @@
+class Solution {
+	public String numberToWords(int num) {
+		if (num == 0)
+			return "Zero";
+		return numtoe(num);
+
+	}
+
+	public String numtoe(int input) {
+		if (input == 0) {
+			return new String();
+		}
+		String res="";
+		int undt = input % 1000;
+		input = input / 1000;
+		String undert = geteng(undt).trim();
+		if (input == 0)
+			return undert;
+		int thou = input % 1000;
+		input = input / 1000;
+		String thoustr = geteng(thou).trim();
+		res=  thoustr.equals("")? undert:(thoustr + " " + "Thousand" + " " + undert).trim().replaceAll(" +", " ");
+		if (input == 0)
+			return res;
+		int mil = input % 1000;
+		input = input / 1000;
+		String milstr = geteng(mil).trim();
+		res= milstr.equals("")? res:(milstr + " " + "Million" + " " + res).trim().replaceAll(" +", " ");
+		if (input == 0)
+			return res;
+		int bil = input % 1000;
+		input = input / 1000;
+		String bilstr = geteng(bil).trim();
+		res= bilstr.equals("")? res:(bilstr + " " + "Billion" +" "+res).trim().replaceAll(" +", " ");
+		if (input == 0)
+			return res;
+		else {
+			String tilstr = geteng(input).trim();
+			return (tilstr + " " + "Trillion" + bilstr + " " + "Billion" + milstr + " " + "Million" + " " + thoustr
+					+ " " + "Thousand" + " " + undert).trim().replaceAll(" +", " ");
+		}
+	}
+
+	private String geteng(int input) {
+		String res = "";
+		int hun = input / 100;
+		input = input % 100;
+		switch (hun) {
+		case 1:
+			res += "One Hundred ";
+			break;
+		case 2:
+			res += "Two Hundred ";
+			break;
+		case 3:
+			res += "Three Hundred ";
+			break;
+		case 4:
+			res += "Four Hundred ";
+			break;
+		case 5:
+			res += "Five Hundred ";
+			break;
+		case 6:
+			res += "Six Hundred ";
+			break;
+		case 7:
+			res += "Seven Hundred ";
+			break;
+		case 8:
+			res += "Eight Hundred ";
+			break;
+		case 9:
+			res += "Nine Hundred ";
+			break;
+		case 0:
+			res += " ";
+			break;
+		}
+		if (input == 10 || input == 11 || input == 12 || input == 0 || input == 13 || input == 14 || input == 15
+				|| input == 16 || input == 17 || input == 18 || input == 19) {
+			switch (input) {
+			case 12:
+				res += "Twelve ";
+				break;
+			case 11:
+				res += "Eleven ";
+				break;
+			case 10:
+				res += "Ten ";
+				break;
+			case 0:
+				res += " ";
+				break;
+			case 13:
+				res += "Thirteen ";
+				break;
+			case 14:
+				res += "Fourteen ";
+				break;
+			case 15:
+				res += "Fifteen ";
+				break;
+			case 16:
+				res += "Sixteen ";
+				break;
+			case 17:
+				res += "Seventeen ";
+				break;
+			case 18:
+				res += "Eighteen ";
+				break;
+			case 19:
+				res += "Nineteen ";
+				break;
+			}
+		} else {
+			int tenth = input / 10;
+			input = input % 10;
+			switch (tenth) {
+			case 2:
+				res += "Twenty ";
+				break;
+			case 3:
+				res += "Thirty ";
+				break;
+			case 4:
+				res += "Forty ";
+				break;
+			case 5:
+				res += "Fifty ";
+				break;
+			case 6:
+				res += "Sixty ";
+				break;
+			case 7:
+				res += "Seventy ";
+				break;
+			case 8:
+				res += "Eighty ";
+				break;
+			case 9:
+				res += "Ninety ";
+				break;
+			case 0:
+				res += "";
+			}
+			switch (input) {
+			case 1:
+				res += "One ";
+				break;
+			case 2:
+				res += "Two ";
+				break;
+			case 3:
+				res += "Three ";
+				break;
+			case 4:
+				res += "Four ";
+				break;
+			case 5:
+				res += "Five ";
+				break;
+			case 6:
+				res += "Six ";
+				break;
+			case 7:
+				res += "Seven ";
+				break;
+			case 8:
+				res += "Eight ";
+				break;
+			case 9:
+				res += "Nine ";
+				break;
+			}
+		}
+		return res;
+	}
+}
