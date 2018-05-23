@@ -1,0 +1,26 @@
+public class Snum1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Snum1 snumnew=new Snum1();
+		System.out.println(snumnew.isSnum1(619));
+
+	}
+	
+	private boolean isSnum1(int input) {
+		String mid=String.valueOf(input);
+				
+		int left=0,right=mid.length()-1;
+		while(left<=right) {
+			char leftchar=mid.charAt(left);
+			char rightchar=mid.charAt(right);
+			if(leftchar=='9'&& rightchar=='6' ||leftchar=='6'&& rightchar=='9' ||
+					leftchar==rightchar && (leftchar=='0' || leftchar=='1' || leftchar=='8')) {
+				left++;
+				right--;
+			}else return false;
+		}
+		return true;
+	}
+
+}
