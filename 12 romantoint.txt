@@ -1,0 +1,50 @@
+12
+Shao Boran
+ÖÜÒ» 5/21, 17:14
+Äã
+class Solution {
+    public String intToRoman(int input) {
+        String res="";
+int t=input/1000;
+input=input%1000;
+for(int i=0; i<t;i++) res+="M";
+int h=input/100;
+input=input%100;
+if(h==9) res+="CM";
+else if(h==4) res+="CD";
+else {
+if(h>=5) {
+res+="D";
+h=h-5;
+}
+for(int i=0; i<h; i++) {
+res+="C";
+}
+}
+int tenth=input/10;
+input=input%10;
+if(tenth==9) res+="XC";
+else if(tenth==4) res+="XL";
+else {
+if(tenth>=5) {
+res+="L";
+tenth=tenth-5;
+}
+for(int i=0; i<tenth; i++) {
+res+="X";
+}
+}
+if(input==9) res+="IX";
+else if(input==4) res+="IV";
+else {
+if(input>=5) {
+res+="V";
+input=input-5;
+}
+for(int i=0; i<input; i++) {
+res+="I";
+}
+}
+return res;
+    }
+}
