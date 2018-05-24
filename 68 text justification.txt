@@ -1,0 +1,48 @@
+class Solution {
+    public LinkedList<String> fullJustify(String[] words, int maxWidth) {
+    	LinkedList<String> res=new LinkedList<String>();
+    	String newstr=new String();
+        if(words.length==0) return res;
+    	for(String x: words) {
+            if(newstr.length()==0 && x.length()==maxWidth){
+                 res.add(x);
+    			 newstr=new String();
+            }else if(newstr.length()+1+x.length()==maxWidth ) {
+    			 if(newstr.length()==0) res.add(newstr+=x+" "); else res.add(newstr+=" "+x);
+    			 newstr=new String();
+    		}else if(newstr.length()+1+x.length()<maxWidth){
+    			newstr= newstr.length()==0? newstr+x:newstr+ " "+x;
+                newstr=newstr.trim();
+    			continue;
+    		}else {
+                String[] parts=newstr.trim().split(" ");
+                if(parts.length==1){
+                    while(newstr.length()<maxWidth) newstr+=" ";
+                    res.add(newstr);
+                    newstr=x;
+                    continue;
+                }
+                int len=0;
+                for(String xx:parts) len+=xx.length();
+                int leftspace=maxWidth-len;
+                int space=leftspace/(parts.length-1);
+                String spacestr="";
+                for(int i=1; i<=space; i++) spacestr+=" ";
+                int extraspace=leftspace%(parts.length-1);
+                String xxx="";
+                for(int i=0; i<parts.length-1; i++){
+                    xxx=xxx+parts[i]+spacestr;
+                    if(extraspace>0) xxx+=" ";
+                    extraspace--;
+                }
+                xxx+=parts[parts.length-1];
+                res.add(xxx);
+    			newstr=x;
+    		}
+    	}
+        if(newstr.length()!=0){
+    	while(newstr.length()<maxWidth) newstr+=" ";
+    	res.add(newstr);}
+        return res;
+    }
+}
