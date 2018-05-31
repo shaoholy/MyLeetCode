@@ -1,0 +1,22 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        StringBuilder sbnew=new StringBuilder();
+        for(char x: s.toCharArray()) if(checkvalid(x)) sbnew.append(x);
+        String news=new String(sbnew);
+        if (s==null || news.length()==0) return true;
+        int left=0, right=news.length()-1;
+        while(left<=right){
+            if(Character.toLowerCase(news.charAt(left))-Character.toLowerCase(news.charAt(right))!=0) return false;
+            else {
+                right--;
+                left++;
+            }
+        }
+        return true;
+    }
+    
+    private boolean checkvalid(char x){
+        if(x-'a'>=0 && x-'a'<26 || x-'A'>=0 && x-'A'<26 || x-'0'>=0 && x-'0'<10) return true;
+        else return false;
+    }
+}
