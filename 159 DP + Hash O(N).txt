@@ -1,0 +1,27 @@
+public class OneFiveNine {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		OneFiveNine ofn=new OneFiveNine();
+		String  input="eceba";
+		System.out.println(ofn.getSub(input));
+
+	}
+	
+	private int getSub(String s) {
+		int res=0, left=0, right=0;
+		HashMap<Character, Integer> themap=new HashMap<Character,Integer>();
+		while(right<s.length()) {
+			themap.put(s.charAt(right), themap.getOrDefault(s.charAt(right), 0)+1);
+			if(themap.size()<=2) res=Math.max(res, right-left+1);
+			right++;
+			while(themap.size()>2 && left<=right) {
+				if(themap.get(s.charAt(left))>1) themap.put(s.charAt(left), themap.get(s.charAt(left))-1);
+				else themap.remove(s.charAt(left));
+				left++;
+			}
+		}
+		return res;
+	}
+
+}
