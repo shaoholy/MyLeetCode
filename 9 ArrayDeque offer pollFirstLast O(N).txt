@@ -1,0 +1,14 @@
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x<0) return false;
+        ArrayDeque<Integer> thedq=new ArrayDeque<Integer>();
+        while(x!=0){
+            thedq.offer(x%10);
+            x=x/10;
+        }
+        while(thedq.size()>1){
+            if(thedq.pollFirst()-thedq.pollLast()!=0) return false;
+        }
+        return true;
+    }
+}
