@@ -1,0 +1,20 @@
+public class TwoSixSix {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String input="cac!a@ca!";
+		TwoSixSix tss=new TwoSixSix();
+		System.out.println(tss.get266(input));
+
+	}
+	
+	private boolean get266(String s) {
+		HashSet<Character> theset=new HashSet<Character>();
+		for(char x: s.toCharArray()) {
+			if(!theset.contains(x)) theset.remove(x);
+			else theset.add(x);
+		}
+		return theset.size()<=1? true:false;
+	}
+
+}
