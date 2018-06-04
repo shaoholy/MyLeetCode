@@ -1,0 +1,39 @@
+public class TwoOneFour {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		TwoOneFour TOF=new TwoOneFour();
+		String s="";
+		System.out.println(TOF.get214(s));
+
+	}
+	
+	private String get214(String s) {
+		double starter=((double)(s.length()-1))/2;
+		//System.out.println(starter);
+		String res=new String(s);
+		while(starter>=0) {
+			if(isp(s, starter)) {
+				for(int i=(int)(starter*2+1);i<s.length(); i++)  res=s.charAt(i)+res;
+				break;
+			}
+			starter-=0.5;
+		}
+		return res;
+	}
+	private boolean isp(String s, double posi) {
+		int left,right;
+		if(posi%1==0) {
+			left=(int)posi-1;right=(int)posi+1;
+		}else {
+			left=(int)(posi-0.5);right=(int)(posi+0.5);
+			//System.out.println(left);
+			//System.out.println(right);
+		}
+		for(; left>=0; left--,right++) {
+			if(s.charAt(left)!=s.charAt(right)) return false;
+		}
+		return true;
+	}
+
+}
