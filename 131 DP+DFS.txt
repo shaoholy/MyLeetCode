@@ -1,0 +1,44 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        LinkedList<Integer> curr=new LinkedList<Integer>();
+		List<List<String>> res=new ArrayList<>();
+        if(s==null || s.length()==0) return res;
+        helper(s, s, res, curr);
+        return res;
+        
+    }
+    private void helper(String s, String input, List<List<String>> res, LinkedList<Integer> curr){
+         if(checkpalindrome(input)){
+            ArrayList<String> newlist=new ArrayList<String>();
+            int starter=0;
+            for (Iterator iter = curr.iterator(); iter.hasNext();) {
+				int posi = (Integer) iter.next();
+				newlist.add(s.substring(starter, posi));
+				starter=posi;
+			}
+            newlist.add(s.substring(starter));
+            res.add(newlist);
+            if (input.length()==1) return;
+        }
+        
+       for(int i=1;i<input.length();i++){
+           String part1=input.substring(0, i);
+           String part2=input.substring(i);
+           if(!checkpalindrome(part1)) continue;
+           else{
+               curr.add(i+s.length()-input.length());
+               helper(s,part2,res,curr);
+               curr.removeLast();
+           }
+       }
+    }
+    private boolean checkpalindrome(String s) {
+		int left=0,right=s.length()-1;
+		while(left<=right) {
+			if(s.charAt(left)!=s.charAt(right)) return false;
+				left++;
+				right--;
+		}
+		return true;
+	}
+}
