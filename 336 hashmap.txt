@@ -1,0 +1,56 @@
+package trycode;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
+import jdk.nashorn.internal.objects.NativeWeakMap;
+
+
+public class ThreeThreeSix {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String[] input= {"bat", "tab", "cat"};
+		ThreeThreeSix TTS=new ThreeThreeSix();
+		System.out.println(TTS.get336(input));
+		System.out.println(TTS.get336(input).size());
+
+	}
+	private ArrayList<ArrayList<Integer>> get336(String[] words){
+		ArrayList<ArrayList<Integer>> res=new ArrayList<ArrayList<Integer>>();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		for(int i=0; i<words.length; i++) map.put(words[i],	i);
+		for(int i=0; i<words.length; i++) {
+			for(int j=0;j<=words[i].length();j++) {
+				String part1=words[i].substring(0, j);
+				String part2=words[i].substring(j);
+				if(checkpalindrome(part1) && map.containsKey(new String(new StringBuilder(part2).reverse())) && map.get(new String(new StringBuilder(part2).reverse()))!=i){
+					ArrayList<Integer> newlist=new ArrayList<Integer>();
+					newlist.add(map.get(new String(new StringBuilder(part2).reverse())));
+					newlist.add(i);
+					res.add(newlist);
+				}
+				if(checkpalindrome(part2) && map.containsKey(new String(new StringBuilder(part1).reverse())) && map.get(new String(new StringBuilder(part1).reverse()))!=i) {
+					ArrayList<Integer> newlist=new ArrayList<Integer>();
+					newlist.add(i);
+					newlist.add(map.get(new String(new StringBuilder(part1).reverse())));
+					res.add(newlist);
+				}
+			}
+		}
+		return res;
+	}
+	private boolean checkpalindrome(String s) {
+		int left=0,right=s.length()-1;
+		while(left<=right) {
+			if(s.charAt(left)==s.charAt(right)) {
+				left++;
+				right--;
+			}else return false;
+		}
+		return true;
+	}
+
+}
