@@ -1,0 +1,65 @@
+package trycode;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+
+public class TwoSixSeven {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		TwoSixSeven TSS=new TwoSixSeven();
+		String string="cabca";
+		System.out.println(TSS.get267(string));
+
+	}
+	private ArrayList<String> get267(String s){
+		
+		int len=s.length();
+		HashMap<Character, Integer> themap=new HashMap<Character,Integer>();
+		HashSet<Character> singlecount=new HashSet<Character>();
+		HashSet<String> res=new HashSet<String>();
+		for(char x: s.toCharArray()) {
+			themap.put(x, themap.getOrDefault(x, 0)+1);
+			if(themap.get(x)%2==1) singlecount.add(x);
+			else singlecount.remove(x); 
+		}
+		if(singlecount.size()>1) return new ArrayList<String>();
+		char mid=' ';
+		for (char x: singlecount) {
+			if(themap.get(x)==1) themap.remove(x);
+			else themap.put(x, themap.get(x)-1);
+			mid=x;
+		}
+		dfsget267(themap, 0, len, new StringBuilder(), res, mid);
+		return new ArrayList<String>(res);
+	}
+	
+	private void dfsget267(HashMap<Character, Integer> themap, int currlen,int len, StringBuilder currstr, HashSet<String> res, char mid) {
+		if(currlen==len/2) {
+			StringBuilder newsb=new StringBuilder();
+			newsb.append(currstr);
+			newsb.append(currstr.reverse());
+			if(len%2==0) {
+				res.add(newsb.toString());
+			}else {
+				res.add(newsb.insert(newsb.length()/2, mid).toString());
+			}
+			currstr.reverse();
+			System.out.println(currstr);
+			return;
+		}
+		LinkedList<Character> thelist=new LinkedList<>(themap.keySet());
+		for (char x: thelist) {
+			currstr.append(x);
+			if (themap.get(x)==2) themap.remove(x);
+			else themap.put(x, themap.get(x)-2);
+			dfsget267(themap, currlen+1, len, currstr, res, mid);
+			currstr.deleteCharAt(currstr.length()-1);
+			themap.put(x, themap.getOrDefault(x, 0)+2);
+		}
+		
+	}
+
+}
