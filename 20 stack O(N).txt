@@ -1,0 +1,17 @@
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> thestack=new Stack<Character>();
+        for(char x: s.toCharArray()){
+            if(x=='(' || x== '{' || x=='[') thestack.push(x);
+            else if(x==')'){
+                if(thestack.empty() || thestack.pop()!='(') return false;
+            }else if(x==']'){
+                if(thestack.empty() || thestack.pop()!='[') return false;
+            }else if(x=='}'){
+                if(thestack.empty() || thestack.pop()!='{') return false;
+            }
+                
+        }
+        return thestack.empty()? true:false;
+    }
+}
