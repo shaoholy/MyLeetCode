@@ -1,0 +1,41 @@
+class Solution {
+    public List<Integer> diffWaysToCompute(String input) {
+        LinkedList<Character> op=new LinkedList<Character>();
+		LinkedList<Integer> nums=new LinkedList<Integer>();
+		ArrayList<Integer> res=new ArrayList<Integer>();
+		int start=0;
+		for(int i=0; i<input.length(); i++) {
+			if(input.charAt(i)=='+' || input.charAt(i)=='-' || input.charAt(i)=='*' ) {
+				op.add(input.charAt(i));
+				nums.add(Integer.parseInt(input.substring(start, i)));
+				start=i+1;
+			}
+		}
+		nums.add(Integer.parseInt(input.substring(start)));
+		dfs241(nums, op, res);
+		return res;
+    }
+    private void dfs241(LinkedList<Integer> nums, LinkedList<Character> op, ArrayList<Integer> res) {
+		if (op.isEmpty()) {
+			res.add(nums.peek());
+			return;
+		}
+		for(int i=0;i<op.size();i++) {
+			char thisop=op.get(i);
+			op.remove(i);
+			int firstnum=nums.get(i),secondnum=nums.get(i+1);
+			nums.remove(i);
+			nums.remove(i);
+			int newnum;
+			if (thisop=='+') newnum=firstnum+secondnum;
+			if(thisop=='-') newnum=firstnum-secondnum;
+			else newnum=firstnum*secondnum;
+			nums.add(i, newnum);
+			dfs241(nums, op, res);
+			op.add(i, thisop);
+			nums.remove(i);
+			nums.add(i,secondnum);
+			nums.add(i,firstnum);
+		}
+    }
+}
