@@ -1,0 +1,116 @@
+{\rtf1\ansi\ansicpg936\cocoartf1561\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Bold;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red242\green242\blue242;\red115\green0\blue2;
+\red102\green155\blue78;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c96078\c96078\c96078;\cssrgb\c53333\c0\c0;
+\cssrgb\c47059\c66275\c37647;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid1\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0
+\f0\fs24 \cf0 {\listtext	\uc0\u8259 	}
+\f1\b\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+public
+\f2\b0  
+\f1\b class
+\f2\b0  
+\f1\b \cf4 Solution
+\f2\b0 \cf2  \{\
+\pard\pardeftab720\sl360\partightenfactor0
+\ls1\ilvl0
+\f1\b \cf2 \kerning1\expnd0\expndtw0 {\listtext	
+\f3\b0 \uc0\u8259 
+\f1\b 	}\expnd0\expndtw0\kerning0
+public
+\f2\b0  ListNode oddEvenList(ListNode head) \{\
+\pard\pardeftab720\sl360\partightenfactor0
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+    
+\f1\b if
+\f2\b0  (head != \cf5 null\cf2 ) \{\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+    \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+        ListNode odd = head, even = head.
+\f1\b next
+\f2\b0 , evenHead = even; \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+    \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+        
+\f1\b while
+\f2\b0  (even != \cf5 null\cf2  && even.
+\f1\b next
+\f2\b0  != \cf5 null\cf2 ) \{\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+            odd.
+\f1\b next
+\f2\b0  = odd.
+\f1\b next
+\f2\b0 .
+\f1\b next
+\f2\b0 ; \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+            even.
+\f1\b next
+\f2\b0  = even.
+\f1\b next
+\f2\b0 .
+\f1\b next
+\f2\b0 ; \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+            odd = odd.
+\f1\b next
+\f2\b0 ;\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+            even = even.
+\f1\b next
+\f2\b0 ;\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+        \}\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+        odd.
+\f1\b next
+\f2\b0  = evenHead; \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+    \}\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+    
+\f1\b return
+\f2\b0  head;\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+\}\}\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8259 	}\
+}
