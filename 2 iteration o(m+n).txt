@@ -1,0 +1,30 @@
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode start1=l1,start2=l2;
+        while(start1!=null || start2!=null){
+            if(start1!=null && start2!=null){
+                start1.val=start1.val+start2.val;
+                if(start1.val>=10) {
+                    start1.val-=10;
+                    if(start1.next!=null) start1.next.val++;
+                    else if(start2.next!=null) start2.next.val++;
+                    else start1.next=new ListNode(1);
+                }
+                if(start1.next==null && start2.next!=null){
+                    start1.next=new ListNode(start2.next.val);
+                    start2.next.val=0;
+                }
+                start1=start1.next;
+                start2=start2.next;
+            }else if(start1!=null && start2==null){
+                if(start1.val>=10) {
+                    start1.val-=10;
+                    if(start1.next!=null) start1.next.val++;
+                    else start1.next=new ListNode(1);
+                }
+                start1=start1.next;
+            }
+        }
+        return l1;
+    }
+}
