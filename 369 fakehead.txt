@@ -1,0 +1,48 @@
+package Leetcode;
+
+public class ThreeSixNine {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	private ListNode get369(ListNode head) {
+		ListNode fakehead=new ListNode(0);
+		fakehead.next=head;
+		ListNode thisnode=fakehead,start,end;
+		while(thisnode!=null) {
+			if (thisnode.next!=null && thisnode.next.val!=9) {
+				thisnode=thisnode.next;
+			}else if (thisnode.next!=null && thisnode.next.val==9) {
+				start=thisnode;
+				end=thisnode.next;
+				while(end!=null && end.val==9) {
+					end=end.next;
+				}
+				if(end==null) {
+					start.val++;
+					while(start.next!=null) {
+						start.next.val=0;
+						start=start.next;
+					}
+					if (fakehead.val==0) return fakehead.next; 
+					else return fakehead;
+				}else {
+					thisnode=end;
+					continue;
+				}
+			}else {
+				break;
+			}
+		}
+		return head;
+	}
+
+}
+
+class ListNode{
+	int val;
+	ListNode next;
+	ListNode(int x) { val = x; }
+}
