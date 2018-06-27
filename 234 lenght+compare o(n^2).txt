@@ -1,0 +1,22 @@
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        int len=0;
+        ListNode start=head;
+        while(start!=null) {
+            start=start.next;
+            len++;
+        }
+        for(int i=len/2-1; i>=0; i--){
+            int thisnode=i, nextnode=len-1-i,thisval=0, nextval=0;
+            start=head;
+            for(int j=0; j<=nextnode; j++){
+                if(j==i) thisval=start.val;
+                if(j==nextnode) nextval=start.val;
+                start=start.next;
+            }
+            if(thisval==nextval) continue;
+            else return false;
+        }
+        return true;
+    }
+}
