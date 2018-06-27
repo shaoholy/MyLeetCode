@@ -1,0 +1,25 @@
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode prev=null, slow=head, fast=head; 
+        while(fast!=null && fast.next!=null){
+            prev=slow;
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        prev.next=null;
+        ListNode l1 = sortList(head);
+        ListNode l2 = sortList(slow);
+        return mergetwosortedlists(l1, l2);
+    }
+    private ListNode mergetwosortedlists(ListNode a, ListNode b){
+        if(a==null || b==null) return a==null? b:a;
+        if(a.val<b.val){
+            a.next=mergetwosortedlists(a.next,b);
+            return a;
+        }else{
+            b.next=mergetwosortedlists(b.next, a);
+            return b;
+        }
+    }
+}
