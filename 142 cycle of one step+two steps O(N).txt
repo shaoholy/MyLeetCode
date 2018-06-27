@@ -1,0 +1,18 @@
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        ListNode onestep=head, twostep=head;
+        while(onestep!=null && twostep!=null && twostep.next!=null){
+            onestep=onestep.next;
+            twostep=twostep.next.next;
+            if(onestep==twostep){
+                onestep=head;                
+                while(onestep!=twostep){
+                    onestep=onestep.next;
+                    twostep=twostep.next;
+                }
+                return onestep;
+            }
+        }
+        return null;
+    }
+}
