@@ -1,0 +1,24 @@
+ Solution {
+    public ListNode partition(ListNode head, int x) {
+        //dp method
+        ListNode Fakehead=new ListNode(-1);
+        Fakehead.next=head;
+        ListNode newhead=Fakehead,curr=Fakehead;
+        while(curr.next!=null){
+            if(curr.next.val<x){
+                if(newhead.next==curr.next){
+                    newhead=newhead.next;
+                    curr=curr.next;
+                }else{
+                ListNode temp1=curr.next.next, temp2=curr.next, temp3=newhead.next;
+                newhead.next=temp2;
+                temp2.next=temp3;
+                curr.next=temp1;
+                newhead=newhead.next;}
+            }else{
+                curr=curr.next;
+            }
+        }
+        return Fakehead.next;
+    }
+}
