@@ -1,0 +1,26 @@
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists.length==0) return null;
+        else if(lists.length==1) return lists[0];
+        else if(lists.length==2) return mergetwosortedlists(lists[0], lists[1]);
+        else{
+            int newsize= lists.length%2==0? lists.length/2 : lists.length/2+1;
+            ListNode[] newlists=new ListNode[newsize];
+            for(int i=0; i<newsize-1; i++){
+                newlists[i]=mergetwosortedlists(lists[2*i], lists[2*i+1]);
+            }
+            newlists[newsize-1]= lists.length%2==0? mergetwosortedlists(lists[2*newsize-2], lists[2*newsize-1]) : lists[lists.length-1];
+            return mergeKLists(newlists);
+        }
+    }
+    private ListNode mergetwosortedlists(ListNode a, ListNode b){
+        if(a==null || b== null) return a==null? b:a;
+        if(a.val<b.val){
+            a.next=mergetwosortedlists(a.next, b);
+            return a;
+        }else{
+            b.next=mergetwosortedlists(b.next, a);
+            return b;
+        }
+    }
+}
