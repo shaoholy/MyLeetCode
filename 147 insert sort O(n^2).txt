@@ -1,0 +1,24 @@
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if(head==null) return head;
+        ListNode newhead=new ListNode(head.val);
+        ListNode oldcurr=head.next,newcurr=newhead;
+        while(oldcurr!=null){
+            int thisval=oldcurr.val;
+            if(thisval<=newhead.val){
+                ListNode newnode=new ListNode(thisval);
+                newnode.next=newhead;
+                newhead=newnode;
+                newcurr=newhead;
+            }else{
+                while(newcurr.next!=null && newcurr.next.val<thisval ) newcurr=newcurr.next;
+                ListNode newnode=new ListNode(thisval), temp=newcurr.next;
+                newcurr.next=newnode;
+                newnode.next=temp;
+                newcurr=newhead;
+            }
+            oldcurr=oldcurr.next;
+        }
+        return newhead;
+    }
+}
