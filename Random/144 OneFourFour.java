@@ -53,11 +53,12 @@ class Solution {
                     pre=pre.right;
                 }
                 if(pre.right==null){
+		res.add(cur.val);
                     pre.right=cur;
                     cur=cur.left;
                 }else{
                     pre.right=null;
-                    res.add(cur.val);
+                    
                     cur=cur.right;
                 }
             }
