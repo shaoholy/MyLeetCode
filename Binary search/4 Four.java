@@ -17,7 +17,7 @@ class Solution {
         if(bstart>nums2.length-1) return nums1[astart+k-1];
         if(k==1) return Math.min(nums1[astart], nums2[bstart]);
         
-        int mida=Integer.MAX_VALUE, midb=Integer.MIN_VALUE;
+        int mida=Integer.MAX_VALUE, midb=Integer.MAX_VALUE;
         if(astart+k/2-1<nums1.length) mida=nums1[astart+k/2-1];
         if(bstart+k/2-1<nums2.length) midb=nums2[bstart+k/2-1];
         
