@@ -20,3 +20,30 @@ class Solution {
         return true;
     }
 }
+
+//O(n) space o(n) time, reverse the first half during the first iteration, recover while iterate back
+public boolean isPalindrome(ListNode head) {
+        if (head == null) {
+            return true;
+        }
+        ListNode slow = head, fast = head, rev = null;
+        while (fast != null && fast.next != null) {
+            ListNode temp = rev;
+            rev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+            rev.next = temp;
+        }
+        ListNode tail = fast != null ? slow.next : slow;
+        while (rev != null) {
+            if (tail.val != rev.val) {
+                return false;
+            }
+            ListNode temp = slow;
+            slow = rev;
+            tail = tail.next;
+            rev = rev.next;
+            slow.next = temp;
+        }
+        return true;
+    }
