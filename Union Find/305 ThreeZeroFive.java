@@ -5,13 +5,13 @@ import java.util.Arrays;
 
 public class Solution {
     private int[] islands;
-    		private int getroot(int i) {
-    			while(islands[i]!=i) {
-    				islands[i]=islands[islands[i]];
-    				i=islands[i];
-    			}
-    			return i;
-    		}
+		private int getroot(int i) {
+			while(islands[i]!=i) {
+				islands[i]=islands[islands[i]];
+				i=islands[i];
+			}
+			return i;
+		}
     private int[] yo = {-1, 1, 0, 0};
     private int[] xo = {0, 0, -1, 1};
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
