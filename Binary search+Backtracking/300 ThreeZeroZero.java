@@ -31,7 +31,7 @@ public int lengthOfLIS(int[] nums) {
     return size;
 }
 //or updated with Arrays.binarySearch(int[], start, end, target) (O(logN))
-ublic class Solution {
+public class Solution {
     public int lengthOfLIS(int[] nums) {            
         int[] dp = new int[nums.length];
         int len = 0;
