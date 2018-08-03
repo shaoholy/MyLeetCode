@@ -55,3 +55,75 @@ class Solution {
         }
     }
 }
+///2, tree application, O(nlogN) time
+ublic class Solution {
+    public List<Integer> countSmaller(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        if(nums == null || nums.length == 0) return res;
+        TreeNode root = new TreeNode(nums[nums.length - 1]);
+        res.add(0);
+        for(int i = nums.length - 2; i >= 0; i--) {
+            int count = insertNode(root, nums[i]);
+            res.add(count);
+        }
+        Collections.reverse(res);
+        return res;
+    }
+
+    public int insertNode(TreeNode root, int val) {
+        int thisCount = 0;
+        while(true) {
+            if(val <= root.val) {
+                root.count++;
+                if(root.left == null) {
+                    root.left = new TreeNode(val); break;
+                } else {
+                    root = root.left;
+                }
+            } else {
+                thisCount += root.count;
+                if(root.right == null) {
+                    root.right = new TreeNode(val); break;
+                } else {
+                    root = root.right;
+                }
+            }
+        }
+        return thisCount;
+    }
+}
+
+class TreeNode {
+    TreeNode left; 
+    TreeNode right;
+    int val;
+    int count = 1;
+    public TreeNode(int val) {
+        this.val = val;
+    }
+}
+
+//3, arraylist binary search, O(N logN N)
+public List<Integer> countSmaller(int[] nums) {
+    ArrayList<Integer> sort=new ArrayList<Integer>();
+    LinkedList<Integer> res=new LinkedList<Integer>();
+    if(nums==null || nums.length==0) return res;
+    res.addFirst(0);
+    if(nums.length==1) return res;
+    sort.add(nums[nums.length-1]);
+    for(int i=nums.length-2; i>=0; i--){
+        int cur=nums[i];
+        int left=0, right=sort.size();
+        while(left<right){
+            int mid=left+(right-left)/2;
+            if(sort.get(mid)<cur){
+                left=mid+1;
+            }else{
+                right=mid;
+            }
+        }
+        sort.add(left, cur);
+        res.addFirst(left);
+    }
+    return res;
+}
