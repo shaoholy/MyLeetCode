@@ -31,3 +31,24 @@ class Solution {
         }
     }
 }
+//not considering dupli
+public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res=new ArrayList<>();
+        Arrays.sort(candidates);
+        backTrack(res,new ArrayList<Integer>(),candidates,0,target);
+        return res;
+    }
+private void backTrack(List<List<Integer>> res,List<Integer> cur,int[]nums,int start,int left){
+        if(left==0) {
+            res.add(new ArrayList<>(cur));
+            return;}
+        
+        for(int i=start;i<nums.length;i++){
+            if(left<nums[i]) return;
+            else{
+                cur.add(nums[i]);
+                backTrack(res,cur,nums,i,left-nums[i]);
+                cur.remove(cur.size()-1);
+            }                
+        }
+    }

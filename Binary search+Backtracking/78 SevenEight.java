@@ -26,7 +26,7 @@ class Solution {
             cur.add(nums[i]);
             backtracking78(nums, i+1, len, cur, res);
             cur.remove(cur.size()-1);
-        }
+        } 
     }
 }
 //concise version(直接考虑所有长度) zhongdian: 每次backtrack add的都是一个shadow的新list！
