@@ -44,9 +44,9 @@ class TwoSum{
     
     /** Add the number to an internal data structure.. */
     public void add(int number) {
-    		for(int x: map.keySet()) {
-    			sums.add(x + number);
-    		}
+		for(int x: map.keySet()) {
+			sums.add(x + number);
+		}
         map.put(number, map.getOrDefault(number, 0) + 1);
     }
     
@@ -54,4 +54,25 @@ class TwoSum{
     public boolean find(int value) {
        return sums.contains(value);
     }
+}
+
+//3, treemap O(logN) time to add, o(N) time to find
+TreeMap<Integer, Integer> tree = new TreeMap<Integer, Integer>(); 
+public void add(int number) {
+    tree.put(number, tree.getOrDefault(number, 0) + 1);
+}
+
+
+public boolean find(int value) {
+    int lo = tree.firstKey(), hi = tree.lastKey(); 
+    while(lo != hi){
+        if(lo + hi == value){
+            return true;
+        }else if(lo + hi > value){
+            hi = tree.lowerKey(hi);
+        }else{
+            lo = tree.higherKey(lo);
+        }
+    }
+    return lo * 2 == value && tree.get(lo) > 1;
 }
