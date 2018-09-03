@@ -26,34 +26,31 @@ public class Solution {
     }
 }
 //bfs
-public class Solution {
-  public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-      if(node==null) return null;
-      HashMap<UndirectedGraphNode,UndirectedGraphNode> nodemap=new HashMap<>();
-      UndirectedGraphNode res=new UndirectedGraphNode(node.label);
-      LinkedList<UndirectedGraphNode> oldstack=new LinkedList<>();
-      LinkedList<UndirectedGraphNode> newstack=new LinkedList<>();
-      oldstack.add(node);
-      newstack.add(res);
-      nodemap.put(node, res);
-      while(oldstack.size()!=0){
-          int len=oldstack.size();
-          for(int i=0; i<len; i++){
-              UndirectedGraphNode curnode=oldstack.poll();
-              UndirectedGraphNode lastnode=newstack.poll();
-              for(UndirectedGraphNode x: curnode.neighbors){
-                  if(nodemap.containsKey(x)) {
-                      lastnode.neighbors.add(nodemap.get(x));
-                      continue;
+  public class Solution {
+      public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+          if(node == null){
+              return null; 
+          }
+          HashMap<UndirectedGraphNode, UndirectedGraphNode> oldToNew = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+          Deque<UndirectedGraphNode> deq = new ArrayDeque<UndirectedGraphNode>();
+          deq.offer(node); 
+          UndirectedGraphNode newRoot = new UndirectedGraphNode(node.label);
+          
+          oldToNew.put(node, newRoot);
+          while(!deq.isEmpty()){
+              UndirectedGraphNode oldCur = deq.pollFirst(); 
+              UndirectedGraphNode newCur = oldToNew.get(oldCur); 
+              for(UndirectedGraphNode neighbor : oldCur.neighbors){
+                  if(oldToNew.containsKey(neighbor)){
+                      newCur.neighbors.add(oldToNew.get(neighbor));
+                  }else{
+                      UndirectedGraphNode newNeighbor = new UndirectedGraphNode(neighbor.label);
+                      newCur.neighbors.add(newNeighbor);
+                      oldToNew.put(neighbor, newNeighbor);
+                      deq.offerLast(neighbor);
                   }
-                  oldstack.add(x);
-                  UndirectedGraphNode newnode=new UndirectedGraphNode(x.label);
-                  lastnode.neighbors.add(newnode); 
-                  newstack.add(newnode);
-                  nodemap.put(x, newnode);
               }
           }
+          return newRoot;
       }
-      return res;
   }
-}

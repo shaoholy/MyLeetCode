@@ -5,15 +5,16 @@ import java.util.Arrays;
 
 public class Solution {
     private int[] islands;
-		private int getroot(int i) {
-			while(islands[i]!=i) {
-				islands[i]=islands[islands[i]];
-				i=islands[i];
-			}
-			return i;
-		}
     private int[] yo = {-1, 1, 0, 0};
     private int[] xo = {0, 0, -1, 1};
+    		private int getroot(int i) {
+    			while(islands[i]!=i) {
+    				islands[i]=islands[islands[i]];
+    				i=islands[i];
+    			}
+    			return i;
+    		}
+
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
         islands = new int[m*n];
         Arrays.fill(islands, -1);
@@ -144,3 +145,82 @@ public class ThreeZeroFive {
 //		}
 //	}
 //}
+
+// lintcode unionfind
+
+public class Solution {
+    final int[][] dir = {{1 , 0},{0, 1}, {-1, 0}, {0 , -1}};
+    public List<Integer> numIslands2(int n, int m, Point[] operators) {
+        
+        List<Integer> res = new ArrayList<>();
+        if(operators == null || operators.length == 0 || n == 0 || m == 0){
+            return res; 
+        }
+        UnionFind uf = new UnionFind(n, m);
+        int island = 0; 
+        int[][] sea = new int[n][m];
+        
+        for(int i = 0; i < operators.length; i++){
+            int x = operators[i].x;
+            int y = operators[i].y;
+            int posi = x * m + y;
+            if(sea[x][y] != 1){
+                island++; 
+                sea[x][y] = 1; 
+                for(int j = 0; j < 4; j++){
+                    int newx = x + dir[j][0];
+                    int newy = y + dir[j][1];
+                    if(0 <= newx && newx < n && 0 <= newy && newy < m && sea[newx][newy] == 1) {
+                        int newPosi = newx * sea[0].length + newy; 
+                        
+                        int fa = uf.compressed_find(posi);
+                        int nfa = uf.compressed_find(newPosi);
+                        if(fa != nfa) {
+                            island--;
+                            uf.union(posi, newPosi);
+                        }
+                    }
+                }
+            }
+            res.add(island);
+        }
+        return res; 
+    }
+    
+    class UnionFind{
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        public UnionFind(int n, int m){
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < m; j++){
+                    int cur = i * m + j; 
+                    map.put(cur, cur);
+                }
+            }
+        }
+        
+        int compressed_find(int x){
+            //find
+            int parent = map.get(x);
+            while(parent != map.get(parent)){
+                parent = map.get(parent);
+            }
+            //compress
+            int tmp;
+            int nxt = x; 
+            while(nxt != map.get(nxt)){
+                tmp = map.get(nxt);
+                map.put(nxt, parent);
+                nxt = tmp;
+            }
+            
+            return parent; 
+        }
+        void union(int x, int y){
+            int fax = compressed_find(x);
+            int fay = compressed_find(y);
+            if(fax != fay){
+                map.put(fax, fay);
+            }
+        }
+    }
+}
