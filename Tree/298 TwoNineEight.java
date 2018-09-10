@@ -6,7 +6,7 @@ import javax.xml.soap.Node;
 public class TwoNineEight {
 
 }
-//recursion with class field int max; 
+//recursion with class field int max; up to down
 public class Solution {
     private int max = 0;
 	public int longestConsecutive(TreeNode root) {
@@ -31,3 +31,29 @@ public class Solution {
 		recur298(node.right, node.val, curlen);
 	}
 }
+
+//1, divide Conquer O(N) time, O(h) space
+public class Solution {
+  int max;
+
+  public int longestConsecutive(TreeNode root) {
+    max = 0;
+    dfs(root);
+    return max;
+  }
+
+  private int dfs(TreeNode node) {
+    if (node == null) {
+      return 0;
+    }
+    int leftRes = dfs(node.left);
+    int rightRes = dfs(node.right);
+
+    int leftP = (leftRes == 0 || node.val != node.left.val - 1) ? 1 : 1 + leftRes;
+    int rightP = (rightRes == 0 || node.val != node.right.val - 1) ? 1 : 1 + rightRes;
+    int res = Math.max(leftP, rightP);
+    max = Math.max(max, res);
+    return res;
+  }
+}
+
